@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    
+
+</head>
+
+<body>
+    <div class="container m-3">
+        <div class="input-group mb-3">
+            <span class="input-group-text">웹하드DownLoad경로</span>
+            <input type="text" class="form-control" id="webhard-path" placeholder="웹하드DownLoad경로">
+        </div> 
+        <div class="input-group mb-3">
+            <span class="input-group-text">백업파일경로</span>
+            <input type="text" class="form-control" id="backupfile-path" placeholder="백업파일경로">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text">작업파일경로</span>
+            <input type="text" class="form-control" id="workfile-path" placeholder="작업일경로">
+        </div>
+        <div class="input-group mb-3">
+            <ion-icon size="large" name="documents-outline"></ion-icon>
+            <span class="input-group-text">붙여넣기</span>
+            <input type="text" class="form-control" id="copy" placeholder="붙여넣기">
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-1 order-first">
+                <input type="text" class="form-control" id="index-no" placeholder="no.">
+            </div>
+            <div class="col-3">
+                <input type="text" class="form-control" id="date" placeholder="접수일시">
+            </div>
+            <div class="col-5">
+                <input type="text" class="form-control" id="name" placeholder="업체명">
+            </div>
+            <div class="col order-last align-self-end">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="nameCheck">
+                    <label class="form-check-label" for="nameCheck">업체명 전단계 사용</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="checkHyun" autocomplete="off">
+                <label class="btn btn-outline-primary" for="checkHyun">현수막</label>
+
+                <input type="checkbox" class="btn-check" id="checkSheet" autocomplete="off">
+                <label class="btn btn-outline-primary" for="checkSheet">시트</label>
+
+                <input type="checkbox" class="btn-check" id="checkHurex" autocomplete="off">
+                <label class="btn btn-outline-primary" for="checkHurex">후렉스</label>
+
+                <input type="checkbox" class="btn-check" id="checkFlat" autocomplete="off">
+                <label class="btn btn-outline-primary" for="checkFlat">평판</label>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="checkChanel" autocomplete="off">
+                <label class="btn btn-outline-success" for="checkChanel">채널</label>
+
+                <input type="checkbox" class="btn-check" id="checkCnc" autocomplete="off">
+                <label class="btn btn-outline-success" for="checkCnc">CNC</label>
+
+                <input type="checkbox" class="btn-check" id="checkGalba" autocomplete="off">
+                <label class="btn btn-outline-success" for="checkGalba">갈바</label>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                <input type="checkbox" class="btn-check" id="checkSimple" autocomplete="off">
+                <label class="btn btn-outline-danger" for="checkSimple">단순작업</label>
+
+                <input type="checkbox" class="btn-check" id="checkEmergency" autocomplete="off">
+                <label class="btn btn-outline-danger" for="checkEmergency">긴급처리</label>
+
+                <input type="checkbox" class="btn-check" id="checkEstimate" autocomplete="off">
+                <label class="btn btn-outline-danger" for="checkEstimate">견적요청</label>
+
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="button" class="btn btn-outline-success" id="mainButton">Add it!!!</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
+    
+    <script src="index.js"></script>
+    <script>
+        document.getElementById('webhard-path').addEventListener('change', event => changeName('webhard'));
+        document.getElementById('backupfile-path').addEventListener('change', event => changeName('backupfile'));
+        document.getElementById('workfile-path').addEventListener('change', event => changeName('workfile'));
+        
+        document.getElementById('copy').addEventListener('change', setName);        
+        document.getElementById('nameCheck').addEventListener('click', setName);
+        
+        document.getElementById('index-no').addEventListener('change', changeNumber);
+        document.getElementById('mainButton').addEventListener('click', afterButton);
+        
+        function changeName(str){
+            
+            const webhard_path = document.getElementById('webhard-path');
+            const backupfile_path = document.getElementById('backupfile-path');
+            const workfile_path = document.getElementById('workfile-path');
+
+            if (str === 'webhard'){
+                let str = webhard_path.value      
+                webhard_path.value = str.replace(/\\/g, '/') ;
+            }else if ( str === 'backupfile' ){
+                let str = backupfile_path.value      
+                backupfile_path.value = str.replace(/\\/g, '/') ;
+            }else if ( str === 'workfile' ){
+                let str = workfile_path.value      
+                workfile_path.value = str.replace(/\\/g, '/') ;
+            }else{}
+            
+        }
+
+        function changeNumber(){
+
+            const index_no = document.getElementById('index-no');
+            let index_value = parseInt(index_no.value); 
+
+            if(isNaN(index_value)){
+                
+                index_no.value = "";
+                alert('접수번호는 숫자를 입력해주세요');
+                
+            }else{
+                index_no.value = fillZero(3, String(index_value));                                
+            }          
+        }
+        
+        function afterButton(){
+
+            const index_no = document.getElementById('index-no');
+            
+            let index_value = parseInt(index_no.value);  
+
+            if(isNaN(index_value)){
+                
+                index_no.value = "";
+                alert('접수번호는 숫자를 입력해주세요');
+                
+            }else{
+                index_no.value = fillZero(3, String(index_value + 1));                                
+            }                   
+
+            //파일 옮기기
+            let oriPath = document.getElementById('webhard-path').value;
+            let backupPath = document.getElementById('backupfile-path').value;
+            let workPath = document.getElementById('workfile-path').value;
+            
+            let aa = filesCopy2(oriPath, backupPath, workPath);
+            
+
+        }
+         
+        
+        function setName() {
+
+            const date_Input = document.getElementById('date');
+            const name_Input = document.getElementById('name');
+
+            const copyData = document.getElementById('copy').value;
+            const checkData = document.getElementById('nameCheck').checked;
+
+
+            let lastdate = test2(copyData, 0);
+            let lastname;
+
+
+            if (checkData) {
+                lastname = test2(copyData, 2);
+            } else {
+                lastname = test2(copyData, 1);
+            }
+
+            date_Input.value = lastdate;
+            name_Input.value = lastname;
+
+        }
+    </script>
+
+</body>
+
+</html>
